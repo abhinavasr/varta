@@ -40,8 +40,7 @@ services:
     volumes:
       - ./ssh-setup:/app/ssh-setup
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     restart: unless-stopped
 
   frontend:
