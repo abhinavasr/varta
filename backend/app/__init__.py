@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
@@ -25,7 +25,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev_secret_key')
     
     # Configure CORS - allow all origins for troubleshooting
-    CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
+    CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
     
     # Initialize extensions with app
     db.init_app(app)
@@ -46,7 +46,6 @@ def create_app():
     # Add request logging for debugging
     @app.before_request
     def log_request_info():
-        from flask import request
         logger.info('Headers: %s', request.headers)
         logger.info('Body: %s', request.get_data())
     
