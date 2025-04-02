@@ -1,17 +1,15 @@
 runtime: python310
-
-service: backend
-
 entrypoint: gunicorn -b :$PORT run:app
 
+beta_settings:
+  cloud_sql_instances: vartaapp-455609:us-central1:varta-db
+
 env_variables:
-  DATABASE_URL: "sqlite:///tmp/varta.db"
+  DATABASE_URL: "postgresql+psycopg2://postgres:vartaDbPassword123!@/varta_db?host=/cloudsql/vartaapp-455609:us-central1:varta-db"
   JWT_SECRET_KEY: "production_jwt_secret_key"
   SECRET_KEY: "production_secret_key"
-  CORS_ALLOW_ORIGIN: "*"
-
+  CORS_ALLOW_ORIGIN: "https://frontend-dot-vartaapp-455609.uc.r.appspot.com"
 handlers:
 - url: /.*
   script: auto
-
 instance_class: F2
