@@ -8,7 +8,7 @@ env_variables:
   DATABASE_URL: "sqlite:///tmp/varta.db"
   JWT_SECRET_KEY: "production_jwt_secret_key"
   SECRET_KEY: "production_secret_key"
-  CORS_ALLOW_ORIGIN: "https://frontend-dot-varta-455608.uc.r.appspot.com"
+  CORS_ALLOW_ORIGIN: "*"
 
 handlers:
 - url: /.*
