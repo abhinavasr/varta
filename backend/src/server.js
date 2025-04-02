@@ -19,6 +19,30 @@ const routes = require('./routes');
 const app = express();
 
 // Middleware
+// More robust CORS configuration
+app.use((req, res, next) => {
+  const allowedOrigins = ['http://localhost:3000', 'https://frontend-dot-varta-455515.uc.r.appspot.com'];
+  const origin = req.headers.origin;
+  
+  // Allow the specific origin if it's in our list
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  
+  // Set other CORS headers
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  
+  next();
+});
+
+// Also keep the cors middleware as a fallback
 app.use(cors({
   origin: ['http://localhost:3000', 'https://frontend-dot-varta-455515.uc.r.appspot.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
