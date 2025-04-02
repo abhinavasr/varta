@@ -11,6 +11,24 @@ env_variables:
   DB_PASSWORD: "postgres"
 
 handlers:
+  - url: /api/auth/register
+    script: auto
+    secure: always
+    http_headers:
+      Access-Control-Allow-Origin: https://frontend-dot-varta-455515.uc.r.appspot.com
+      Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+      Access-Control-Allow-Headers: Content-Type, Authorization
+      Access-Control-Allow-Credentials: 'true'
+  
+  - url: /api/.*
+    script: auto
+    secure: always
+    http_headers:
+      Access-Control-Allow-Origin: https://frontend-dot-varta-455515.uc.r.appspot.com
+      Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+      Access-Control-Allow-Headers: Content-Type, Authorization
+      Access-Control-Allow-Credentials: 'true'
+  
   - url: /.*
     script: auto
     secure: always
