@@ -4,6 +4,11 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 import os
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Initialize extensions
 db = SQLAlchemy()
@@ -19,9 +24,8 @@ def create_app():
     app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'dev_jwt_secret_key')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev_secret_key')
     
-    # Configure CORS
-    cors_origin = os.environ.get('CORS_ALLOW_ORIGIN', '*')
-    CORS(app, resources={r"/api/*": {"origins": cors_origin}}, supports_credentials=True)
+    # Configure CORS - allow all origins for troubleshooting
+    CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
     
     # Initialize extensions with app
     db.init_app(app)
@@ -39,6 +43,13 @@ def create_app():
     app.register_blueprint(users_bp, url_prefix='/api/users')
     app.register_blueprint(tokens_bp, url_prefix='/api/tokens')
     
+    # Add request logging for debugging
+    @app.before_request
+    def log_request_info():
+        from flask import request
+        logger.info('Headers: %s', request.headers)
+        logger.info('Body: %s', request.get_data())
+    
     # Error handlers
     @app.errorhandler(404)
     def not_found(error):
@@ -46,6 +57,7 @@ def create_app():
     
     @app.errorhandler(500)
     def server_error(error):
+        logger.error('Server error: %s', str(error))
         return jsonify({'error': 'Server error'}), 500
     
     # Health check endpoint
