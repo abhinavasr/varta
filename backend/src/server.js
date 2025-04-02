@@ -21,7 +21,11 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: ['http://localhost:3000', 'https://frontend-dot-varta-455515.uc.r.appspot.com'],
-  credentials: true
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 app.use(helmet());
 app.use(morgan('dev'));
