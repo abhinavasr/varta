@@ -19,33 +19,43 @@ const routes = require('./routes');
 const app = express();
 
 // Middleware
-// More robust CORS configuration
-app.use((req, res, next) => {
-  const allowedOrigins = ['http://localhost:3000', 'https://frontend-dot-varta-455515.uc.r.appspot.com'];
+// Get allowed origin from environment variable or use default values
+const allowedOrigin = process.env.CORS_ALLOW_ORIGIN || 'https://frontend-dot-varta-455515.uc.r.appspot.com';
+const allowedOrigins = ['http://localhost:3000', allowedOrigin];
+
+// Handle OPTIONS preflight requests explicitly
+app.options('*', (req, res) => {
   const origin = req.headers.origin;
   
-  // Allow the specific origin if it's in our list
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
   }
   
-  // Set other CORS headers
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.status(204).end();
+});
+
+// CORS middleware for all other requests
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
   
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.status(204).end();
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
   }
   
   next();
 });
 
-// Also keep the cors middleware as a fallback
+// Also keep the cors middleware as a fallback with the environment variable
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://frontend-dot-varta-455515.uc.r.appspot.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT, DELETE, OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   preflightContinue: false,
