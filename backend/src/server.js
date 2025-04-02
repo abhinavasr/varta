@@ -19,7 +19,10 @@ const routes = require('./routes');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://frontend-dot-varta-455515.uc.r.appspot.com'],
+  credentials: true
+}));
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(bodyParser.json());

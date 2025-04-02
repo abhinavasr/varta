@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { User, UserProfile, TokenBalance } = require('../models');
+const { Op } = require('sequelize');
 
 // Register a new user
 exports.register = async (req, res) => {
@@ -10,7 +11,7 @@ exports.register = async (req, res) => {
     // Check if user already exists
     const userExists = await User.findOne({ 
       where: { 
-        [sequelize.Op.or]: [
+        [Op.or]: [
           { email },
           { username }
         ]
