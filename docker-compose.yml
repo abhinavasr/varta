@@ -36,6 +36,9 @@ services:
       CORS_ALLOW_ORIGIN: http://localhost:3000
     ports:
       - "8080:8080"
+      - "2222:22"  # SSH port for backend
+    volumes:
+      - ./ssh-setup:/app/ssh-setup
     depends_on:
       postgres:
         condition: service_healthy
@@ -48,6 +51,9 @@ services:
     container_name: varta-frontend
     ports:
       - "3000:80"
+      - "2223:22"  # SSH port for frontend
+    volumes:
+      - ./ssh-setup:/app/ssh-setup
     depends_on:
       - backend
     restart: unless-stopped
