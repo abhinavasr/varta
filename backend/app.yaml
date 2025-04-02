@@ -9,8 +9,6 @@ env_variables:
   DB_NAME: "varta"
   DB_USER: "postgres"
   DB_PASSWORD: "postgres"
-
-env_variables:
   CORS_ALLOW_ORIGIN: "https://frontend-dot-varta-455515.uc.r.appspot.com"
 
 handlers:
