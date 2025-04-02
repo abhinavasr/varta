@@ -1,0 +1,40 @@
+<header class="app-header">
+    <div class="header-container">
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <h1>Varta</h1>
+            </a>
+        </div>
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
+                <li class="auth-required"><a href="{{ url_for('profile') }}" class="nav-link">Profile</a></li>
+                <li class="auth-required"><a href="{{ url_for('create_post') }}" class="nav-link">Create Post</a></li>
+            </ul>
+        </nav>
+        <div class="auth-nav">
+            <div class="auth-links" id="auth-links">
+                <!-- Auth links will be updated via JavaScript -->
+                <a href="{{ url_for('login') }}" class="btn btn-secondary not-logged-in">Login</a>
+                <a href="{{ url_for('register') }}" class="btn btn-primary not-logged-in">Register</a>
+                <span class="token-balance logged-in">Tokens: <span id="header-token-balance">0</span></span>
+                <button id="logout-button" class="btn btn-secondary logged-in">Logout</button>
+            </div>
+        </div>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+            <i class="material-icons">menu</i>
+        </button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+    <ul class="mobile-nav-links">
+        <li><a href="{{ url_for('index') }}" class="mobile-nav-link">Home</a></li>
+        <li class="auth-required"><a href="{{ url_for('profile') }}" class="mobile-nav-link">Profile</a></li>
+        <li class="auth-required"><a href="{{ url_for('create_post') }}" class="mobile-nav-link">Create Post</a></li>
+        <li class="not-logged-in"><a href="{{ url_for('login') }}" class="mobile-nav-link">Login</a></li>
+        <li class="not-logged-in"><a href="{{ url_for('register') }}" class="mobile-nav-link">Register</a></li>
+        <li class="logged-in"><span class="mobile-token-balance">Tokens: <span id="mobile-token-balance">0</span></span></li>
+        <li class="logged-in"><button id="mobile-logout-button" class="mobile-logout-button">Logout</button></li>
+    </ul>
+</div>

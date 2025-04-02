@@ -1,0 +1,141 @@
+/* Auth pages (login/register) specific styles */
+.auth-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.auth-card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.auth-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    font-size: 28px;
+}
+
+.auth-form {
+    margin-bottom: 20px;
+}
+
+.auth-form .form-group {
+    margin-bottom: 20px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-secondary);
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.auth-footer a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Animation for auth card */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 20px auto;
+    }
+    
+    .auth-card {
+        padding: 20px;
+    }
+}
+
+/* Form validation visual feedback */
+.auth-form input.valid {
+    border-color: var(--success-color);
+}
+
+.auth-form input.invalid {
+    border-color: var(--error-color);
+}
+
+/* Password strength indicator */
+.password-strength {
+    height: 5px;
+    margin-top: 5px;
+    border-radius: 2px;
+    transition: width 0.3s;
+}
+
+.strength-weak {
+    width: 33%;
+    background-color: var(--error-color);
+}
+
+.strength-medium {
+    width: 66%;
+    background-color: orange;
+}
+
+.strength-strong {
+    width: 100%;
+    background-color: var(--success-color);
+}

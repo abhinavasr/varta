@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varta - Post Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/post-details.css') }}">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        {% include 'partials/header.html' %}
+        
+        <main class="main-content">
+            <div class="container">
+                <div class="post-details-container">
+                    <div class="post-card" id="post-details">
+                        <!-- Post details will be loaded here via JavaScript -->
+                        <div class="loading-spinner" id="post-loading-spinner">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="comments-section">
+                        <h3>Comments</h3>
+                        <div class="comments-container" id="comments-container">
+                            <!-- Comments will be loaded here via JavaScript -->
+                            <p class="no-comments-message">No comments yet. Be the first to comment!</p>
+                        </div>
+                        
+                        <div class="add-comment-form" id="add-comment-form">
+                            <textarea id="comment-content" placeholder="Add a comment..."></textarea>
+                            <button type="button" id="submit-comment-button" class="btn btn-primary">Comment</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <div class="token-balance-card" id="token-balance-card">
+                        <!-- Token balance will be loaded here via JavaScript -->
+                    </div>
+                    
+                    <div class="related-posts-card">
+                        <h3>Related Posts</h3>
+                        <div class="related-posts-container" id="related-posts-container">
+                            <!-- Related posts will be loaded here via JavaScript -->
+                            <div class="loading-spinner" id="related-posts-loading-spinner">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        {% include 'partials/footer.html' %}
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/post-details.js') }}"></script>
+</body>
+</html>

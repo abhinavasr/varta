@@ -1,0 +1,227 @@
+/* Profile page specific styles */
+.profile-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 30px;
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h2 {
+    margin: 0 0 5px 0;
+    font-size: 28px;
+    color: var(--text-primary);
+}
+
+.profile-info #profile-username {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.profile-info #profile-bio {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.profile-stats {
+    display: flex;
+    margin-top: 20px;
+}
+
+.profile-stats .stat {
+    margin-right: 30px;
+    text-align: center;
+}
+
+.profile-stats .stat span:first-child {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.profile-stats .stat span:last-child {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.profile-actions {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+.profile-tabs {
+    display: flex;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: background-color 0.2s, color 0.2s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+    background-color: rgba(74, 144, 226, 0.05);
+    color: var(--primary-color);
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+/* Transactions table styles */
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions-table th,
+.transactions-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.transactions-table th {
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.transactions-table tr:last-child td {
+    border-bottom: none;
+}
+
+.transactions-table tr:hover td {
+    background-color: rgba(74, 144, 226, 0.05);
+}
+
+.positive-amount {
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.negative-amount {
+    color: var(--error-color);
+    font-weight: 500;
+}
+
+.no-transactions-message,
+.no-posts-message {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 20px;
+}
+
+/* Animation for profile elements */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-header {
+    animation: fadeInDown 0.5s ease-out;
+}
+
+.profile-tabs {
+    animation: fadeInDown 0.5s ease-out 0.1s both;
+}
+
+.tab-content {
+    animation: fadeInDown 0.5s ease-out 0.2s both;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .profile-actions {
+        position: static;
+        margin-top: 20px;
+        width: 100%;
+    }
+    
+    .profile-actions button {
+        width: 100%;
+    }
+    
+    .profile-stats {
+        justify-content: center;
+    }
+}

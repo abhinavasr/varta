@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varta - Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        {% include 'partials/header.html' %}
+        
+        <main class="main-content">
+            <div class="container">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            <img id="profile-avatar" src="{{ url_for('static', filename='img/default-avatar.png') }}" alt="Profile Avatar">
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="profile-display-name">Loading...</h2>
+                            <p id="profile-username">@loading...</p>
+                            <p id="profile-bio">Loading bio...</p>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span id="posts-count">0</span>
+                                    <span>Posts</span>
+                                </div>
+                                <div class="stat">
+                                    <span id="token-balance">0</span>
+                                    <span>Tokens</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-actions" id="profile-actions">
+                            <!-- Edit profile button will appear here if it's the user's own profile -->
+                        </div>
+                    </div>
+                    
+                    <div class="profile-tabs">
+                        <button class="tab-button active" data-tab="posts">Posts</button>
+                        <button class="tab-button" data-tab="transactions">Token Transactions</button>
+                    </div>
+                    
+                    <div class="tab-content" id="posts-tab">
+                        <div class="posts-container" id="user-posts-container">
+                            <!-- User posts will be loaded here via JavaScript -->
+                            <div class="loading-spinner" id="posts-loading-spinner">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content hidden" id="transactions-tab">
+                        <div class="transactions-container" id="transactions-container">
+                            <!-- Token transactions will be loaded here via JavaScript -->
+                            <div class="loading-spinner" id="transactions-loading-spinner">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        {% include 'partials/footer.html' %}
+    </div>
+    
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="edit-profile-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit-display-name">Display Name</label>
+                    <input type="text" id="edit-display-name" name="display_name">
+                </div>
+                <div class="form-group">
+                    <label for="edit-bio">Bio</label>
+                    <textarea id="edit-bio" name="bio" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-avatar-url">Avatar URL</label>
+                    <input type="text" id="edit-avatar-url" name="avatar_url">
+                </div>
+                <div class="form-group">
+                    <label for="edit-location">Location</label>
+                    <input type="text" id="edit-location" name="location">
+                </div>
+                <div class="form-group">
+                    <label for="edit-website">Website</label>
+                    <input type="text" id="edit-website" name="website">
+                </div>
+                <div class="form-error" id="edit-profile-error"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-modal">Cancel</button>
+                <button type="button" id="save-profile-button" class="btn btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+</body>
+</html>

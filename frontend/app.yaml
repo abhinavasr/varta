@@ -1,0 +1,19 @@
+runtime: python310
+
+service: frontend
+
+entrypoint: gunicorn -b :$PORT app:app
+
+env_variables:
+  BACKEND_URL: "https://backend-dot-varta-455515.uc.r.appspot.com/api"
+  FLASK_APP: "app"
+  FLASK_DEBUG: "False"
+
+handlers:
+- url: /static
+  static_dir: app/static
+  
+- url: /.*
+  script: auto
+
+instance_class: F2
