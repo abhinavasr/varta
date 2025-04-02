@@ -1,0 +1,19 @@
+runtime: nodejs20
+
+env_variables:
+  NODE_ENV: "production"
+  PORT: "8080"
+  JWT_SECRET: "varta_jwt_secret_key_production"
+  DB_HOST: "/cloudsql/varta-455515:us-central1:varta-db"
+  DB_PORT: "5432"
+  DB_NAME: "varta"
+  DB_USER: "postgres"
+  DB_PASSWORD: "postgres"
+
+handlers:
+  - url: /.*
+    script: auto
+    secure: always
+
+beta_settings:
+  cloud_sql_instances: "varta-455515:us-central1:varta-db"
