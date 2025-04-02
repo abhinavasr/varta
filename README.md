@@ -46,10 +46,46 @@ npm start
 
 ## Deployment
 
+### Google Cloud App Engine
+
 The application is deployed on Google Cloud App Engine:
 
 - Backend: [https://varta-455515.uc.r.appspot.com](https://varta-455515.uc.r.appspot.com)
 - Frontend: [https://frontend-dot-varta-455515.uc.r.appspot.com](https://frontend-dot-varta-455515.uc.r.appspot.com)
+
+### Docker Deployment
+
+The application can also be deployed using Docker on any Ubuntu system:
+
+#### Prerequisites
+
+- Ubuntu 20.04 or newer
+- Docker Engine
+- Docker Compose
+
+#### Quick Start
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/abhinavasr/varta.git
+   cd varta
+   ```
+
+2. Start the application:
+   ```bash
+   docker-compose up -d
+   ```
+
+3. Access the application:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8080
+
+4. Stop the application:
+   ```bash
+   docker-compose down
+   ```
+
+For detailed Docker deployment instructions, see [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md)
 
 ## Ethereum Integration
 
