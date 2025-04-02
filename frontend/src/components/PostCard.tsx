@@ -135,14 +135,16 @@ const PostCard: React.FC<PostCardProps> = ({
     <>
       <Card 
         sx={{ 
-          mb: 2, 
+          mb: 3, 
           cursor: 'pointer',
-          transition: 'transform 0.2s',
+          transition: 'all 0.3s ease',
+          border: '1px solid rgba(0,0,0,0.05)',
           '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: 3
+            transform: 'translateY(-4px)',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.12)'
           }
         }}
+        className="slide-up"
         onClick={handlePostClick}
       >
         <CardHeader
@@ -190,7 +192,15 @@ const PostCard: React.FC<PostCardProps> = ({
         )}
         
         <CardContent onClick={e => e.stopPropagation()}>
-          <Typography variant="body1" component="div">
+          <Typography 
+            variant="body1" 
+            component="div" 
+            sx={{ 
+              lineHeight: 1.6,
+              fontSize: '1rem',
+              mb: 2
+            }}
+          >
             {post.content}
           </Typography>
           
@@ -201,13 +211,29 @@ const PostCard: React.FC<PostCardProps> = ({
                 label={post.left_rating_count || 0}
                 variant="outlined"
                 size="small"
-                sx={{ mr: 1 }}
+                sx={{ 
+                  mr: 1,
+                  borderRadius: '16px',
+                  fontWeight: 500,
+                  transition: 'all 0.2s',
+                  '&:hover': {
+                    backgroundColor: 'rgba(63, 81, 181, 0.08)'
+                  }
+                }}
               />
               <Chip
                 icon={<RightIcon />}
                 label={post.right_rating_count || 0}
                 variant="outlined"
                 size="small"
+                sx={{ 
+                  borderRadius: '16px',
+                  fontWeight: 500,
+                  transition: 'all 0.2s',
+                  '&:hover': {
+                    backgroundColor: 'rgba(63, 81, 181, 0.08)'
+                  }
+                }}
               />
             </Box>
           )}
@@ -215,22 +241,33 @@ const PostCard: React.FC<PostCardProps> = ({
         
         <Divider />
         
-        <CardActions disableSpacing onClick={e => e.stopPropagation()}>
+        <CardActions disableSpacing onClick={e => e.stopPropagation()} sx={{ px: 2, py: 1 }}>
           <Tooltip title={liked ? "Unlike" : "Like (costs 0.1 token)"}>
             <IconButton 
               aria-label="like" 
               onClick={handleLikeClick}
               color={liked ? "secondary" : "default"}
+              sx={{ 
+                transition: 'all 0.2s',
+                '&:hover': { transform: 'scale(1.15)' }
+              }}
             >
               {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </IconButton>
           </Tooltip>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" fontWeight="medium">
             {likeCount}
           </Typography>
           
           <Tooltip title="Comment">
-            <IconButton aria-label="comment" sx={{ ml: 1 }}>
+            <IconButton 
+              aria-label="comment" 
+              sx={{ 
+                ml: 1,
+                transition: 'all 0.2s',
+                '&:hover': { transform: 'scale(1.15)' }
+              }}
+            >
               <CommentIcon />
             </IconButton>
           </Tooltip>
@@ -239,7 +276,11 @@ const PostCard: React.FC<PostCardProps> = ({
             <IconButton 
               aria-label="reshare" 
               onClick={handleReshareClick}
-              sx={{ ml: 1 }}
+              sx={{ 
+                ml: 1,
+                transition: 'all 0.2s',
+                '&:hover': { transform: 'scale(1.15)' }
+              }}
             >
               <ShareIcon />
             </IconButton>

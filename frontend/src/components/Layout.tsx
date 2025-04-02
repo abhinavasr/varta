@@ -21,7 +21,8 @@ import {
   Divider,
   Paper,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Fade
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -30,7 +31,8 @@ import {
   Person as PersonIcon,
   Notifications as NotificationsIcon,
   Logout as LogoutIcon,
-  Token as TokenIcon
+  Token as TokenIcon,
+  Chat as ChatIcon
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { useToken } from '../contexts/TokenContext';
@@ -122,7 +124,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" color="primary" elevation={3}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {isMobile ? (
@@ -138,16 +140,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <MenuIcon />
                 </IconButton>
                 <Typography
-                  variant="h6"
+                  variant="h5"
                   noWrap
                   component={RouterLink}
                   to="/"
                   sx={{
                     mr: 2,
                     flexGrow: 1,
-                    fontFamily: 'monospace',
                     fontWeight: 700,
-                    letterSpacing: '.3rem',
+                    letterSpacing: '.2rem',
                     color: 'inherit',
                     textDecoration: 'none',
                   }}
@@ -158,18 +159,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             ) : (
               <>
                 <Typography
-                  variant="h6"
+                  variant="h5"
                   noWrap
                   component={RouterLink}
                   to="/"
                   sx={{
-                    mr: 2,
+                    mr: 4,
                     display: { xs: 'none', md: 'flex' },
-                    fontFamily: 'monospace',
                     fontWeight: 700,
-                    letterSpacing: '.3rem',
+                    letterSpacing: '.2rem',
                     color: 'inherit',
                     textDecoration: 'none',
+                    transition: 'transform 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.05)'
+                    }
                   }}
                 >
                   VARTA
@@ -178,14 +182,36 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <Button
                     component={RouterLink}
                     to="/"
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    startIcon={<HomeIcon />}
+                    sx={{ 
+                      my: 2, 
+                      color: 'white', 
+                      display: 'block',
+                      mx: 1,
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255,255,255,0.15)',
+                        transform: 'translateY(-2px)'
+                      }
+                    }}
                   >
                     Home
                   </Button>
                   <Button
                     component={RouterLink}
                     to="/create-post"
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    startIcon={<AddIcon />}
+                    sx={{ 
+                      my: 2, 
+                      color: 'white', 
+                      display: 'block',
+                      mx: 1,
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        backgroundColor: 'rgba(255,255,255,0.15)',
+                        transform: 'translateY(-2px)'
+                      }
+                    }}
                   >
                     Create Post
                   </Button>
@@ -201,27 +227,69 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     display: 'flex', 
                     alignItems: 'center', 
                     px: 2, 
-                    py: 0.5, 
+                    py: 0.8, 
                     mr: 2, 
-                    bgcolor: 'rgba(255,255,255,0.15)' 
+                    bgcolor: 'rgba(255,255,255,0.15)',
+                    borderRadius: '20px',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: 'rgba(255,255,255,0.25)',
+                    }
                   }}
                 >
                   <TokenIcon sx={{ mr: 1, fontSize: 18 }} />
-                  <Typography variant="body2">{balance}</Typography>
+                  <Typography variant="body2" fontWeight="medium">{balance}</Typography>
                 </Paper>
               )}
               
-              <IconButton sx={{ mx: 1 }} color="inherit">
-                <Badge badgeContent={0} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
+              <Tooltip title="Notifications">
+                <IconButton 
+                  sx={{ 
+                    mx: 1,
+                    transition: 'transform 0.2s',
+                    '&:hover': { transform: 'scale(1.1)' }
+                  }} 
+                  color="inherit"
+                >
+                  <Badge badgeContent={0} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
               
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Tooltip title="Messages">
+                <IconButton 
+                  sx={{ 
+                    mx: 1,
+                    transition: 'transform 0.2s',
+                    '&:hover': { transform: 'scale(1.1)' }
+                  }} 
+                  color="inherit"
+                >
+                  <Badge badgeContent={0} color="error">
+                    <ChatIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              
+              <Tooltip title="Profile settings">
+                <IconButton 
+                  onClick={handleOpenUserMenu} 
+                  sx={{ 
+                    p: 0.5,
+                    ml: 1,
+                    border: '2px solid rgba(255,255,255,0.5)',
+                    transition: 'all 0.2s',
+                    '&:hover': { 
+                      transform: 'scale(1.1)',
+                      border: '2px solid rgba(255,255,255,0.8)'
+                    }
+                  }}
+                >
                   <Avatar 
                     alt={user?.username || 'User'} 
                     src={user?.profile?.profile_image_url || '/static/images/avatar/2.jpg'} 
+                    sx={{ width: 32, height: 32 }}
                   />
                 </IconButton>
               </Tooltip>
@@ -240,12 +308,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
+                TransitionComponent={Fade}
               >
                 <MenuItem component={RouterLink} to={`/profile/${user?.id}`} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Profile</Typography>
+                  <ListItemIcon>
+                    <PersonIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography>Profile</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
-                  <Typography textAlign="center">Logout</Typography>
+                  <ListItemIcon>
+                    <LogoutIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography>Logout</Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -257,11 +332,27 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         anchor="left"
         open={drawerOpen}
         onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            borderRadius: '0 16px 16px 0',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+          }
+        }}
       >
         {drawerContent}
       </Drawer>
       
-      <Box component="main" sx={{ flexGrow: 1, pt: 10, px: 2, pb: 4 }}>
+      <Box 
+        component="main" 
+        sx={{ 
+          flexGrow: 1, 
+          pt: { xs: 9, sm: 10 }, 
+          px: { xs: 1, sm: 2 }, 
+          pb: 4,
+          minHeight: '100vh'
+        }}
+        className="fade-in"
+      >
         <Container maxWidth="lg">
           {children}
         </Container>

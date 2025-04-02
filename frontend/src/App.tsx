@@ -1,11 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { AuthProvider } from './contexts/AuthContext';
 import { TokenProvider } from './contexts/TokenContext';
-
-// Pages
+import PrivateRoute from './components/PrivateRoute';
+import Layout from './components/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -13,83 +12,108 @@ import Profile from './pages/Profile';
 import CreatePost from './pages/CreatePost';
 import PostDetails from './pages/PostDetails';
 import NotFound from './pages/NotFound';
+import './App.css';
 
-// Components
-import PrivateRoute from './components/PrivateRoute';
-import Layout from './components/Layout';
-
-// Create a theme with mobile-first design
 const theme = createTheme({
   palette: {
-    mode: 'light',
     primary: {
-      main: '#1976d2',
+      main: '#3f51b5',
+      light: '#757de8',
+      dark: '#002984',
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: '#dc004e',
+      main: '#f50057',
+      light: '#ff5983',
+      dark: '#bb002f',
+      contrastText: '#ffffff',
     },
     background: {
-      default: '#f5f5f5',
+      default: '#f5f7fa',
       paper: '#ffffff',
+    },
+    text: {
+      primary: '#333333',
+      secondary: '#666666',
     },
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontSize: '2rem',
-      '@media (min-width:600px)': {
-        fontSize: '2.5rem',
-      },
+      fontWeight: 700,
     },
     h2: {
-      fontSize: '1.75rem',
-      '@media (min-width:600px)': {
-        fontSize: '2rem',
-      },
+      fontWeight: 600,
     },
     h3: {
-      fontSize: '1.5rem',
-      '@media (min-width:600px)': {
-        fontSize: '1.75rem',
-      },
+      fontWeight: 600,
     },
-    body1: {
-      fontSize: '1rem',
+    h4: {
+      fontWeight: 600,
     },
+    h5: {
+      fontWeight: 500,
+    },
+    h6: {
+      fontWeight: 500,
+    },
+    button: {
+      fontWeight: 500,
+      textTransform: 'none',
+    },
+  },
+  shape: {
+    borderRadius: 12,
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          textTransform: 'none',
-          fontWeight: 600,
+          borderRadius: 30,
+          padding: '8px 20px',
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+          },
+        },
+        contained: {
+          '&:hover': {
+            transform: 'translateY(-2px)',
+          },
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          borderRadius: 16,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+          overflow: 'hidden',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
         },
       },
     },
     MuiTextField: {
       styleOverrides: {
         root: {
-          marginBottom: 16,
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 12,
+          },
         },
       },
     },
-  },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 960,
-      lg: 1280,
-      xl: 1920,
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
     },
   },
 });
@@ -104,10 +128,34 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/" element={<PrivateRoute><Layout><Home /></Layout></PrivateRoute>} />
-              <Route path="/profile/:userId" element={<PrivateRoute><Layout><Profile /></Layout></PrivateRoute>} />
-              <Route path="/create-post" element={<PrivateRoute><Layout><CreatePost /></Layout></PrivateRoute>} />
-              <Route path="/post/:postId" element={<PrivateRoute><Layout><PostDetails /></Layout></PrivateRoute>} />
+              <Route path="/" element={
+                <PrivateRoute>
+                  <Layout>
+                    <Home />
+                  </Layout>
+                </PrivateRoute>
+              } />
+              <Route path="/profile/:userId" element={
+                <PrivateRoute>
+                  <Layout>
+                    <Profile />
+                  </Layout>
+                </PrivateRoute>
+              } />
+              <Route path="/create-post" element={
+                <PrivateRoute>
+                  <Layout>
+                    <CreatePost />
+                  </Layout>
+                </PrivateRoute>
+              } />
+              <Route path="/post/:postId" element={
+                <PrivateRoute>
+                  <Layout>
+                    <PostDetails />
+                  </Layout>
+                </PrivateRoute>
+              } />
               <Route path="/404" element={<NotFound />} />
               <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
