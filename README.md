@@ -85,7 +85,29 @@ The application can also be deployed using Docker on any Ubuntu system:
    docker-compose down
    ```
 
+#### SSH Access to Docker Containers
+
+The Docker setup supports direct SSH access to both the backend and frontend containers for debugging and management purposes.
+
+##### SSH Credentials
+- **Username**: root
+- **Password**: varta
+
+##### SSH Connection Commands
+
+For Backend Container:
+```bash
+ssh -p 2222 root@localhost
+```
+
+For Frontend Container:
+```bash
+ssh -p 2223 root@localhost
+```
+
 For detailed Docker deployment instructions, see [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md)
+
+For comprehensive SSH access documentation, see [SSH_ACCESS.md](SSH_ACCESS.md)
 
 ## Ethereum Integration
 
