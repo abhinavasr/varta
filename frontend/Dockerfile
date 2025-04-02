@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y openssh-server sudo net-tools vim && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy SSH configuration
-COPY ssh-setup/sshd_config /etc/ssh/sshd_config
+COPY sshd_config /etc/ssh/sshd_config
 
 # Copy the build output to replace the default nginx contents
 COPY --from=build /app/build /usr/share/nginx/html
